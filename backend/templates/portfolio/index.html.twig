@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center mb-3">
+        
+        {% include '/comunes/_menu.html.twig' %}
+
+        <div class="col-12 col-md-10 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Cargo</th>
+                        <th>Descripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for portfolio in portfolios %}
+                        <tr>
+                            <td>{{ portfolio.id }}</td>
+                            <td>{{ portfolio.user }}</td>
+                            <td>{{ portfolio.position }}</td>
+                            <td>{{ portfolio.description }}</td>
+                            <td>
+                                <a href="{{ path('app_portfolio_edit', {'id': portfolio.id}) }}">Editar</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No se han encontrado portfolios</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

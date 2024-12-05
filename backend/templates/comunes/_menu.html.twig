@@ -1,0 +1,21 @@
+<nav class="navbar navbar-light col-12 col-md-2 d-flex align-items-start">
+  <div class="container-fluid">
+    <ul class="navbar-nav flex-column ">
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_user_index' %}active{% endif %}" aria-current="page" href="{{ path('app_user_index') }}">Usuarios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_portfolio_index' %}active{% endif %}" aria-current="page" href="{{ path('app_portfolio_index') }}">Portfolios</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_education_index' %}active{% endif %}" aria-current="page" href="{{ path('app_education_index') }}">Educación</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_experience_index' %}active{% endif %}" aria-current="page" href="{{ path('app_experience_index') }}">Experiencia</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if app.request.attributes.get('_route') == 'app_project_index' %}active{% endif %}" aria-current="page" href="{{ path('app_project_index') }}">Proyectos</a>
+      </li>
+    </ul>
+  </div>
+</nav>

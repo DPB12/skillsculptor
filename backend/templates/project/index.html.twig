@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center mb-3">
+        
+        {% include 'comunes/_menu.html.twig' %}
+
+        <div class="col-12 col-md-10 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Portfolio</th>
+                        <th>Usuario</th>
+                        <th>Titulo</th>
+                        <th>Empresa</th>
+                        <th>Fecha</th>
+                        <th>Web</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
+                        <tr>
+                            <td>{{ project.id }}</td>
+                            <td>{{ project.portfolio }}</td>
+                            <td>{{ project.portfolio.user }}</td>
+                            <td>{{ project.title }}</td>
+                            <td>{{ project.description }}</td>
+                            <td>
+                                <a href="{{ project.demo }}" target="_blank">{{ project.demo }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ project.github }}" target="_blank">{{ project.github }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_project_edit', {'id': project.id}) }}">Editar</a>
+                                <form action="{{ path('app_project_delete', {'id': project.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                                    <button class="btn btn-sm btn-danger" type="submit">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No se han encontrado proyectos</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

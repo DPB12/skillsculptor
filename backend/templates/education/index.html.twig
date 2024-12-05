@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center mb-3">
+        
+        {% include 'comunes/_menu.html.twig' %}
+
+        <div class="col-12 col-md-10 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Portfolio</th>
+                        <th>Usuario</th>
+                        <th>Titulo</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for education in education %}
+                        <tr>
+                            <td>{{ education.id }}</td>
+                            <td>{{ education.portfolio }}</td>
+                            <td>{{ education.portfolio.user }}</td>
+                            <td>{{ education.title }}</td>
+                            <td>{{ education.date }}</td>
+                            <td>
+                                <a href="{{ path('app_education_edit', {'id': education.id}) }}">Editar</a>
+                                <form action="{{ path('app_education_delete', {'id': education.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ education.id) }}">
+                                    <button class="btn btn-sm btn-danger" type="submit">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No se han encontrado formacion</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

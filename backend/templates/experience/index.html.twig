@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DashBoard{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center mb-3">
+        
+        {% include 'comunes/_menu.html.twig' %}
+
+        <div class="col-12 col-md-10 table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Portfolio</th>
+                        <th>Usuario</th>
+                        <th>Titulo</th>
+                        <th>Empresa</th>
+                        <th>Fecha</th>
+                        <th>Web</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for experience in experiences %}
+                        <tr>
+                            <td>{{ experience.id }}</td>
+                            <td>{{ experience.portfolio }}</td>
+                            <td>{{ experience.portfolio.user }}</td>
+                            <td>{{ experience.title }}</td>
+                            <td>{{ experience.company }}</td>
+                            <td>{{ experience.date }}</td>
+                            <td>
+                                <a href="{{ experience.page }}" target="_blank">{{ experience.page }}</a>
+                            </td>
+                            <td>
+                                <a href="{{ path('app_experience_edit', {'id': experience.id}) }}">Editar</a>
+                                <form action="{{ path('app_experience_delete', {'id': experience.id}) }}" method="post" style="display:inline;" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este usuario?');">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ experience.id) }}">
+                                    <button class="btn btn-sm btn-danger" type="submit">
+                                        <i class="fas fa-trash-alt"></i> Eliminar
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5">No se ha encontrado experiencia</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

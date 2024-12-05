@@ -1,0 +1,27 @@
+# Produccion
+services:
+  frontend:
+    container_name: frontend
+    image: frontend
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 80:3000
+
+# Desarrollo
+# services:
+#   frontend:
+#     image: node:18-alpine
+#     container_name: frontend
+#     ports:
+#       - 3000:3000
+#     working_dir: /app
+#     volumes:
+#      - type: bind
+#        source: ./
+#        target: /app
+#     tty: true
+#     command: sh -c "npm install && npm run dev"
