@@ -1,23 +1,21 @@
-FROM node:18-alpine
+# Etapa 1: Construcción
+FROM node:18 AS build
 
+# Configurar el directorio de trabajo
 WORKDIR /app
 
-# COPY package.json .
+# Copiar los archivos del proyecto
+COPY package*.json ./
+COPY . .
 
-# RUN npm install
+# Instalar dependencias y construir la aplicación
+RUN npm install && npm run build
 
-# RUN npm i -g serve
+# Etapa 2: Servir los archivos estáticos
+FROM nginx:stable-alpine
 
-# COPY . .
+# Copiar los archivos construidos al directorio de Nginx
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# RUN npm run build
-
-# Copia solo la construcción precompilada
-COPY dist ./dist
-
-# Instala 'serve' para servir los archivos estáticos
-RUN npm install -g serve
-
-EXPOSE 3000
-
-CMD [ "serve", "-s", "dist" ]
+# Exponer el puerto 80
+EXPOSE 80

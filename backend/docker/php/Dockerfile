@@ -13,7 +13,7 @@ RUN echo "alias sf=/appdata/www/bin/console" >> /home/appuser/.bashrc
 COPY ./php.ini /usr/local/etc/php/php.ini
 
 RUN apt-get update \
-    && apt-get install -y git acl openssl openssh-client wget zip vim libssh-dev \
+    && apt-get install -y git acl openssl openssh-client wget zip vim libssh-dev netcat-traditional dos2unix \
     && apt-get install -y libpng-dev zlib1g-dev libzip-dev libxml2-dev libicu-dev \
     && docker-php-ext-install intl pdo pdo_mysql zip gd soap bcmath sockets \
     && pecl install xdebug \
@@ -33,3 +33,15 @@ RUN apt install symfony-cli
 RUN mkdir -p /appdata/www
 
 WORKDIR /appdata/www
+
+# Copiar el script de inicio al contenedor
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+
+# Convertir el script a formato Unix
+RUN dos2unix /usr/local/bin/entrypoint.sh
+
+# Hacer el script ejecutable
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+# Usar el script de inicio como entrypoint
+ENTRYPOINT ["entrypoint.sh"]

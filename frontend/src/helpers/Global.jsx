@@ -1,3 +1,3 @@
 export const Global = {
-    url: "http://13.48.247.241:300/api/"
+    url: "http://127.0.0.1:8080/api/"
 }

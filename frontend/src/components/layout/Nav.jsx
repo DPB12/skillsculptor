@@ -51,7 +51,7 @@ export const Nav = () => {
                 <span className="block truncate text-sm font-medium">{auth.email}</span>
               </Dropdown.Header>
               {auth.id && auth.roles.includes("ROLE_ADMIN") &&
-                <a href="http://13.48.247.241:300/" target="_blank" rel="noopener noreferrer">
+                <a href="http://127.0.0.1:8080/" target="_blank" rel="noopener noreferrer">
                   <Dropdown.Item>DashBoard</Dropdown.Item>
                 </a>
               }
